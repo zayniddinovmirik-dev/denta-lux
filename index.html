@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" type="image/png" href="img/logo.png">
+<title>Dent lux — стоматология, Бухара</title>
+<meta id="md" name="description" content="Dent lux: частная и детская стоматология, хирургия. Бухара, улица Академика Ибрагима Муминова, 39. Цены, фото работ, контакты.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap&subset=cyrillic,latin" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--blue:#0f5fa8;--blue-d:#0b4680;--blue-l:#e6f1fb;--teal:#0a7f73;--teal-l:#def6f2;--ink:#0e2233;--mut:#4a6072;--bg:#f5fafd;--line:#d5e5f0;--r:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;overflow-x:hidden;padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+img{max-width:100%;display:block}a{color:var(--blue-d)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:72px 0;scroll-margin-top:128px}
+#top{scroll-margin-top:128px}
+h1,h2,h3{line-height:1.2;margin:0}
+h2{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.01em}
+.sub{color:var(--mut);margin:10px 0 28px;max-width:640px}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hbar{display:flex;align-items:center;gap:10px;min-height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--blue-d);text-decoration:none;font-size:19px;flex:1;min-width:0}
+.logo img,.flogo{border-radius:50%;flex:none}
+.logo img{width:46px;height:46px}
+nav{display:none;gap:20px}nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}nav a:hover{color:var(--blue)}
+.lang{display:flex;border:1.5px solid var(--blue);border-radius:12px;overflow:hidden}
+.lang button{font:inherit;font-weight:700;font-size:14px;min-width:44px;min-height:44px;border:0;background:#fff;color:var(--blue-d);cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--blue);color:#fff}
+.ig-h{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;color:var(--blue-d);border:1.5px solid var(--line);background:#fff}.ig-h:hover{background:var(--blue-l)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 24px;border-radius:14px;font:inherit;font-weight:800;font-size:16px;text-decoration:none;border:2px solid transparent;cursor:pointer;text-align:center;line-height:1.25}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-d)}
+.btn-dark{background:var(--ink);color:#fff}.btn-dark:hover{background:#1c3a52}
+.btn-line{background:#fff;color:var(--blue-d);border-color:var(--blue)}.btn-line:hover{background:var(--blue-l)}
+.btn-sm{min-height:44px;padding:0 16px;font-size:15px}
+.hcall{display:none}
+.mnav{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 16px 8px}.mnav::-webkit-scrollbar{display:none}
+.mnav a{flex:none;scroll-snap-align:start;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:99px;background:var(--blue-l);color:var(--blue-d);font-weight:700;font-size:15px;text-decoration:none}
+.hero{background:linear-gradient(160deg,#fff 0%,var(--blue-l) 60%,var(--teal-l) 100%)}
+.hgrid{display:grid;gap:28px;padding:36px 20px 56px;max-width:1120px;margin:0 auto;align-items:center}
+.cats{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.cats li{background:#fff;color:var(--blue-d);border:1px solid var(--line);border-radius:99px;padding:5px 13px;font-weight:700;font-size:14px}
+.hero h1{font-size:clamp(38px,8vw,64px);font-weight:800;letter-spacing:-.02em;color:var(--blue-d)}
+.lead{font-size:20px;font-weight:700;color:var(--teal);margin:12px 0 6px}
+.where{color:var(--mut);margin:0 0 24px}
+.cta{display:flex;flex-direction:column;gap:12px;max-width:440px}
+.num{white-space:nowrap}
+.callbtn{min-height:60px;padding:8px 14px}.ct{display:flex;flex-direction:column;align-items:center;line-height:1.25}.ct .num{font-size:17px}.sticky .btn{white-space:nowrap}
+.hright{position:relative;display:none}.hphoto{width:100%;height:auto;max-height:540px;aspect-ratio:4/5;object-fit:cover;border-radius:26px;box-shadow:0 24px 50px -20px rgba(7,40,70,.5)}.hbg{display:none}.hero{position:relative}
+.hpanel{position:absolute;left:-18px;bottom:28px;width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#19c3ad);place-items:center;display:grid;box-shadow:0 24px 50px -20px rgba(15,95,168,.55)}
+.hpanel img{width:116px;height:116px;border-radius:50%;box-shadow:0 0 0 6px rgba(255,255,255,.9)}
+.dlist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.dcard{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;font-weight:700}
+.dico{flex:none;width:46px;height:46px;border-radius:14px;background:var(--blue-l);color:var(--blue);display:grid;place-items:center}
+.dcard.free{grid-column:span 2;background:var(--teal);color:#fff;border-color:var(--teal);font-size:18px}.dcard.free svg{flex:none}
+.sgrid{display:grid;gap:18px;margin-top:28px}
+.sbox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.sbox h3{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin-bottom:12px}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{background:var(--blue-l);color:var(--blue-d);border-radius:99px;padding:6px 14px;font-weight:700}
+.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.srch{position:relative;display:block;max-width:420px;margin-bottom:16px}
+.srch svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--mut)}
+.srch input{width:100%;min-height:54px;border:1.5px solid var(--line);border-radius:14px;padding:0 14px 0 44px;font:inherit;font-size:16px;color:var(--ink);background:var(--bg)}
+.srch input:focus{outline:3px solid #9cc7ec;border-color:var(--blue)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tab{flex:none}
+.tab{font:inherit;font-weight:700;font-size:15px;min-height:44px;padding:0 16px;border-radius:99px;border:1.5px solid var(--line);background:#fff;color:var(--blue-d);cursor:pointer}
+.tab.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.panel{display:none}.panel.on{display:block}
+.ph{display:none;font-size:18px;color:var(--teal);margin:22px 0 8px}
+.searching .panel{display:block}.searching .ph{display:block}.searching .panel.nomatch{display:none}.searching .tabs{opacity:.45}
+.plist{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.prow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 18px;border-top:1px solid var(--line)}
+.prow:first-child{border-top:0}
+.pname{display:flex;flex-direction:column;min-width:0;flex:1 1 auto}
+.iname{font-weight:700;overflow-wrap:anywhere}.idesc{color:var(--mut);font-size:14px}
+.pprice{font-weight:800;color:var(--blue-d);white-space:nowrap;flex:none;text-align:right}
+.none{display:none;color:var(--mut);padding:16px 0}
+.pnote{margin:18px 0 0;font-size:13px;color:var(--mut)}.pnote p{margin:0 0 4px}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.gi.fac{width:100%;aspect-ratio:4/3;margin-bottom:6px}.gi.fac img{object-position:50% 12%}.fcap{display:block;font-size:14px;color:var(--mut);margin-bottom:18px}
+.gi{padding:0;border:0;border-radius:14px;overflow:hidden;cursor:pointer;aspect-ratio:3/4;background:var(--blue-l)}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .3s}@media(hover:hover){.gi:hover img{transform:scale(1.04)}}
+.gi:focus-visible,.btn:focus-visible,.lang button:focus-visible,.tab:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.rgrid{display:grid;gap:16px}
+.rev{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.stars{color:#e0a100;display:flex;gap:2px}
+.rev blockquote{margin:12px 0 16px;font-size:20px;font-weight:700}
+.rev figcaption{display:flex;flex-direction:column;font-size:14px;color:var(--mut)}.rev figcaption b{color:var(--ink);font-size:16px}
+.igc{background:linear-gradient(135deg,var(--blue),#14a898);color:#fff;border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.igc h3{font-size:22px}.igc p{margin:0}.igc .nick{font-weight:800;font-size:18px}
+.igc .btn{background:#fff;color:var(--blue-d);margin-top:6px}.igc .btn:hover{background:var(--blue-l)}
+.cgrid{display:grid;gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.card h3{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:0 0 6px}
+.card p{margin:0 0 18px;font-size:18px;font-weight:700}
+.card ul.land{margin:0 0 18px;padding-left:20px;color:var(--mut);font-weight:600}
+.tels{display:flex;flex-direction:column;gap:2px;margin-bottom:18px}
+a.tel{font-size:22px;font-weight:800;text-decoration:none;color:var(--blue-d);min-height:44px;display:flex;align-items:center}
+.soc{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}
+.hours{list-style:none;margin:0 0 10px;padding:0}
+.hours li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:10px;font-weight:600}
+.hours li.today{background:var(--blue-l);outline:2px solid var(--blue)}
+.hours li b{min-width:36px}
+#map{height:320px;border-radius:var(--r);border:1px solid var(--line);margin-bottom:12px;z-index:1}
+.mbtns{display:flex;flex-wrap:wrap;gap:10px}
+footer{background:var(--ink);color:#d6e4ef;padding:32px 0;font-size:15px}
+footer .wrap{display:flex;flex-direction:column;gap:6px;align-items:flex-start}footer b{color:#fff;font-size:18px}
+.flogo{width:56px;height:56px;margin-bottom:6px}
+footer a.fig{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:700;text-decoration:none;min-height:44px}
+.lb{position:fixed;inset:0;background:rgba(5,20,32,.94);z-index:100;display:none;align-items:center;justify-content:center}
+.lb.on{display:flex}.lb img{max-width:94vw;max-height:84vh;border-radius:10px}
+.lb button{position:absolute;background:rgba(255,255,255,.16);color:#fff;border:0;font-size:28px;width:52px;height:52px;border-radius:50%;cursor:pointer}
+.lb .x{top:14px;right:14px}.lb .pv{left:10px;top:50%}.lb .nx{right:10px;top:50%}
+.lb .cap{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-weight:600}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--line)}
+.sticky .btn{flex:1;min-height:50px;padding:0 10px;font-size:16px}
+@media(min-width:700px){.dlist{grid-template-columns:repeat(2,1fr)}.gal{grid-template-columns:repeat(4,1fr)}.rgrid{grid-template-columns:1.4fr 1fr}.sgrid{grid-template-columns:2fr 1fr}.hright{display:block}.hgrid{grid-template-columns:1.2fr 1fr}.cgal{grid-template-columns:repeat(3,1fr)}.facade{display:block}}
+@media(min-width:960px){.cta{display:grid;grid-template-columns:1fr 1fr;max-width:600px}.cta .btn-dark{grid-column:1/-1}.mnav{display:none}section,#top{scroll-margin-top:72px}nav{display:flex}.hcall{display:inline-flex}.hgrid{padding:64px 20px 80px}.dlist{grid-template-columns:repeat(3,1fr)}.cgrid{grid-template-columns:1fr 1.2fr}.sticky{display:none}body{padding-bottom:0}}
+@media(max-width:699px){
+.hero{background:#0e2233}.hbg{display:block;position:absolute;inset:0;overflow:hidden}.hbg img{width:100%;height:100%;object-fit:cover}.hbg:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,28,46,.62),rgba(8,28,46,.9))}
+.hgrid{position:relative}.hright{display:contents}.hphoto{display:none}
+.hero h1{color:#fff}.lead{color:#7ff0df}.where{color:#d6e4ef}
+.cx{display:none}.cta .btn-dark{background:#fff;color:var(--ink)}
+.cgal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}.cgal::-webkit-scrollbar{display:none}
+.cgal .gi{flex:none;width:68vw;scroll-snap-align:center}
+.hgrid{padding:20px 16px 32px;gap:14px;text-align:center}
+.hpanel{position:static;display:grid;order:-1;width:auto;height:auto;background:none;box-shadow:none}
+.hpanel img{width:104px;height:104px;box-shadow:0 0 0 4px #fff,0 10px 24px -8px rgba(15,95,168,.5)}
+.hero h1{font-size:40px}.lead{font-size:18px;margin:6px 0 4px}.where{font-size:15px;margin:0 0 16px}
+.cats{justify-content:center;gap:6px;margin:8px 0 0;order:3}.cats li{font-size:13px;padding:3px 10px}
+.cta{max-width:none}.cta .btn{min-height:52px;padding:0 14px}.cta .callbtn{min-height:60px;padding:8px 14px}
+.hgrid>div:first-child{display:flex;flex-direction:column}.hgrid h1{order:1}.lead{order:2}.cats{order:3;margin:6px 0 14px}.where{order:4}.cta{order:5}
+.tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-left:-16px;margin-right:-16px;padding:2px 16px 8px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{scroll-snap-align:center}
+.dlist{grid-template-columns:repeat(2,1fr);gap:10px}.dcard{padding:12px;font-size:15px;line-height:1.3;min-height:60px}.dico{display:none}
+.dcard.free{grid-column:1/-1;justify-content:center;font-size:17px}
+.mbtns .btn,.rgrid .btn{flex:1 1 100%;width:100%}.igc{align-items:stretch}
+.rev blockquote{font-size:19px}
+.sticky .btn{min-height:50px}
+}
+@media(max-width:699px) and (max-height:780px){.hpanel img{width:88px;height:88px}.hero h1{font-size:34px}.hgrid{padding-top:14px;gap:8px}.where{display:none}.cta .btn{min-height:48px}.cta .callbtn{min-height:58px}.cats{margin-bottom:12px}}
+@media(max-width:420px){.wrap{padding:0 16px}section{padding:56px 0}.hgrid{padding-left:16px;padding-right:16px}.hbar{gap:8px}.logo{font-size:18px}.logo img{width:44px;height:44px}.prow{padding:12px 14px}}
+</style>
+</head>
+<body>
+<header><div class="wrap hbar">
+<a class="logo" href="#top"><img src="img/logo.png" alt="" width="46" height="46"><span>Dent lux</span></a>
+<nav>
+<a href="#uslugi" data-i18n="nav_svc">Услуги</a><a href="#ceny" data-i18n="nav_price">Цены</a><a href="#klinika" data-i18n="nav_clinic">Клиника</a><a href="#raboty" data-i18n="nav_work">Работы</a><a href="#otzyv" data-i18n="nav_rev">Отзыв</a><a href="#kontakty" data-i18n="nav_cont">Контакты</a>
+</nav>
+<div class="lang" role="group" aria-label="RU / UZ"><button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="uz" aria-pressed="false">UZ</button></div>
+<a class="ig-h" href="https://instagram.com/dent_lux_uz" target="_blank" rel="noopener" aria-label="Instagram @dent_lux_uz"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+<a class="btn btn-blue btn-sm hcall" href="tel:+998948879005"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span data-i18n="call">Позвонить</span></a>
+</div>
+<div class="mnav"><a href="#uslugi" data-i18n="nav_svc">Услуги</a><a href="#ceny" data-i18n="nav_price">Цены</a><a href="#klinika" data-i18n="nav_clinic">Клиника</a><a href="#raboty" data-i18n="nav_work">Работы</a><a href="#otzyv" data-i18n="nav_rev">Отзыв</a><a href="#kontakty" data-i18n="nav_cont">Контакты</a></div></header>
+
+<main id="top">
+<div class="hero"><div class="hbg"><img src="img/07.jpg" alt="" width="900" height="1200"></div><div class="hgrid">
+<div>
+<ul class="cats"><li class="" data-i18n="cat0">Частные стоматологии</li><li class="" data-i18n="cat1">Частные детские стоматологии</li><li class="cx" data-i18n="cat2">Проведение хирургических операций</li><li class="cx" data-i18n="cat3">Хирург</li></ul>
+<h1>Dent lux</h1>
+<p class="lead" data-i18n="lead">9+ лет заботы о здоровых улыбках</p>
+<p class="where"><span data-i18n="in_city">Бухара</span>, улица Академика Ибрагима Муминова,&nbsp;39</p>
+<div class="cta">
+<a class="btn btn-blue callbtn" href="tel:+998948879005"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="ct"><span data-i18n="call">Позвонить</span><span class="num">+998 94‒887‒90‒05</span></span></a><a class="btn btn-blue callbtn" href="tel:+998907109005"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="ct"><span data-i18n="call">Позвонить</span><span class="num">+998 90‒710‒90‒05</span></span></a>
+<a class="btn btn-dark" href="https://instagram.com/dent_lux_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg><span data-i18n="ig_btn">Написать в Instagram</span></a>
+</div>
+</div>
+<div class="hright"><img class="hphoto" src="img/07.jpg" alt="Кабинет с мраморными панелями" data-alt-i18n="c0" width="900" height="1200"><div class="hpanel"><img src="img/logo.png" alt="Dent lux" width="120" height="120"></div></div>
+</div></div>
+
+<section id="uslugi"><div class="wrap">
+<h2 data-i18n="h_svc">Услуги</h2><p class="sub" data-i18n="svc_sub">Направления и услуги, которые клиника указала в карточке 2ГИС.</p>
+<ul class="dlist"><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s0">Взрослый стоматолог-хирург</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s1">Взрослый ортодонт</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s2">Взрослый стоматолог-ортопед</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s3">Имплантация</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s4">Взрослый гнатолог</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s5">Детский стоматолог-терапевт</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s6">Детский ортодонт</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s7">Детский стоматолог-хирург</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s8">КТ зубов</span></li><li class="dcard"><span class="dico"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg></span><span data-i18n="s9">Прицельный снимок зуба</span></li><li class="dcard free"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.3 1.3 5 .6 2 .6 4 1.4 6.3.4 1 1.2 2 2.1 2 1.2 0 1.4-1.8 1.7-3.3.3-1.3.8-2.5 2.5-2.5s2.2 1.2 2.5 2.5c.3 1.5.5 3.3 1.7 3.3.9 0 1.7-1 2.1-2 .8-2.3.8-4.3 1.4-6.3.5-1.7 1.3-3 1.3-5C21 5 19.5 3 17 3c-2 0-2.8 1-5 1S9 3 7 3z"/></svg><span data-i18n="s10">Бесплатная консультация</span></li></ul>
+<div class="sgrid">
+<div class="sbox"><h3 data-i18n="h_pay">Способы оплаты</h3><ul class="chips"><li data-i18n="pay0">Оплата картой</li><li data-i18n="pay1">Наличный расчёт</li><li data-i18n="pay2">Перевод с карты</li></ul></div>
+<div class="sbox"><h3 data-i18n="h_acc">Доступная среда</h3><ul class="chips"><li data-i18n="acc0">Пандус</li></ul></div>
+</div>
+</div></section>
+
+<section id="ceny" class="alt"><div class="wrap">
+<h2 data-i18n="h_price">Цены</h2><p class="sub" data-i18n="price_sub">Все разделы прайса клиники из 2ГИС.</p>
+<label class="srch"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" autocomplete="off" placeholder="Поиск по услугам" data-ph-i18n="srch_ph" aria-label="Поиск по услугам" data-aria-i18n="srch_l"></label>
+<div id="pbox">
+<div class="tabs" role="tablist"><button type="button" role="tab" class="tab on" data-t="0" aria-selected="true" data-i18n="sec0">Пародонтология</button><button type="button" role="tab" class="tab" data-t="1" aria-selected="false" data-i18n="sec1">Ортопедия</button><button type="button" role="tab" class="tab" data-t="2" aria-selected="false" data-i18n="sec2">Ортодонтия</button><button type="button" role="tab" class="tab" data-t="3" aria-selected="false" data-i18n="sec3">Хирургия</button><button type="button" role="tab" class="tab" data-t="4" aria-selected="false" data-i18n="sec4">Эндодонтия</button><button type="button" role="tab" class="tab" data-t="5" aria-selected="false" data-i18n="sec5">Терапевтическая Стоматология</button><button type="button" role="tab" class="tab" data-t="6" aria-selected="false" data-i18n="sec6">Косметическая стоматология</button><button type="button" role="tab" class="tab" data-t="7" aria-selected="false" data-i18n="sec7">Детское Лечение</button></div>
+<div class="panel on" role="tabpanel" data-p="0"><h3 class="ph" data-i18n="sec0">Пародонтология</h3><ul class="plist"><li class="prow" data-s="комплексное лечение десен "><div class="pname"><span class="iname">Комплексное лечение десен</span></div><span class="pprice" data-i18n="pr1">300 000 сум</span></li></ul></div><div class="panel" role="tabpanel" data-p="1"><h3 class="ph" data-i18n="sec1">Ортопедия</h3><ul class="plist"><li class="prow" data-s="акриловый съемный протез"><div class="pname"><span class="iname">Акриловый</span><span class="idesc">Съемный протез</span></div><span class="pprice" data-i18n="pr2">2 000 000 сум</span></li><li class="prow" data-s="биопласт съемный и гибкий протез"><div class="pname"><span class="iname">Биопласт</span><span class="idesc">Съемный и гибкий протез</span></div><span class="pprice" data-i18n="pr3">2 500 000 сум</span></li><li class="prow" data-s="вакуумный съемный протез"><div class="pname"><span class="iname">Вакуумный</span><span class="idesc">Съемный протез</span></div><span class="pprice" data-i18n="pr4">3 000 000 сум</span></li><li class="prow" data-s="микропротез съемный протез"><div class="pname"><span class="iname">Микропротез</span><span class="idesc">Съемный протез</span></div><span class="pprice" data-i18n="pr5">600 000 сум</span></li><li class="prow" data-s="штифт (циркониевый) несъемный протез"><div class="pname"><span class="iname">Штифт (циркониевый)</span><span class="idesc">Несъемный протез</span></div><span class="pprice" data-i18n="pr6">300 000 сум</span></li><li class="prow" data-s="штифт (лсп) несъемный протез"><div class="pname"><span class="iname">Штифт (ЛСП)</span><span class="idesc">Несъемный протез</span></div><span class="pprice" data-i18n="pr7">250 000 сум</span></li><li class="prow" data-s="диоксид циркониевая коронка несъемный протез"><div class="pname"><span class="iname">Диоксид циркониевая коронка</span><span class="idesc">Несъемный протез</span></div><span class="pprice" data-i18n="pr8">1 200 000 сум</span></li><li class="prow" data-s="диоксид циркониевая коронка (нанесение) несъемный протез"><div class="pname"><span class="iname">Диоксид циркониевая коронка (нанесение)</span><span class="idesc">Несъемный протез</span></div><span class="pprice" data-i18n="pr9">1 500 000 сум</span></li><li class="prow" data-s="металлокерамическая коронка несъемный протез"><div class="pname"><span class="iname">Металлокерамическая коронка</span><span class="idesc">Несъемный протез</span></div><span class="pprice" data-i18n="pr10">800 000 сум</span></li><li class="prow" data-s="диоксид циркониевая коронка на имплантат"><div class="pname"><span class="iname">Диоксид циркониевая коронка</span><span class="idesc">На имплантат</span></div><span class="pprice" data-i18n="pr11">1 600 000 сум</span></li><li class="prow" data-s="металлокерамическая коронка на имплантат"><div class="pname"><span class="iname">Металлокерамическая коронка</span><span class="idesc">На имплантат</span></div><span class="pprice" data-i18n="pr12">1 300 000 сум</span></li></ul></div><div class="panel" role="tabpanel" data-p="2"><h3 class="ph" data-i18n="sec2">Ортодонтия</h3><ul class="plist"><li class="prow" data-s="брекеты "><div class="pname"><span class="iname">Брекеты</span></div><span class="pprice" data-i18n="pr13">6 000 000 сум</span></li><li class="prow" data-s="брекеты сложные "><div class="pname"><span class="iname">Брекеты сложные</span></div><span class="pprice" data-i18n="pr14">8 000 000 сум</span></li><li class="prow" data-s="установка ретейнеров "><div class="pname"><span class="iname">Установка ретейнеров</span></div><span class="pprice" data-i18n="pr15">800 000 сум</span></li></ul></div><div class="panel" role="tabpanel" data-p="3"><h3 class="ph" data-i18n="sec3">Хирургия</h3><ul class="plist"><li class="prow" data-s="имплантат osstem "><div class="pname"><span class="iname">Имплантат OSSTEM</span></div><span class="pprice" data-i18n="pr16">2 500 000 сум</span></li><li class="prow" data-s="имплантат ca osstem "><div class="pname"><span class="iname">Имплантат CA OSSTEM</span></div><span class="pprice" data-i18n="pr17">3 000 000 сум</span></li><li class="prow" data-s="периостит "><div class="pname"><span class="iname">Периостит</span></div><span class="pprice" data-i18n="pr18">600 000 сум</span></li><li class="prow" data-s="коронарит "><div class="pname"><span class="iname">Коронарит</span></div><span class="pprice" data-i18n="pr19">300 000 сум</span></li><li class="prow" data-s="резекция корня "><div class="pname"><span class="iname">Резекция корня</span></div><span class="pprice" data-i18n="pr20">1 200 000 сум</span></li><li class="prow" data-s="удаление "><div class="pname"><span class="iname">Удаление</span></div><span class="pprice" data-i18n="pr21">200 000 – 300 000 сум</span></li><li class="prow" data-s="удаление зуба мудрости "><div class="pname"><span class="iname">Удаление зуба мудрости</span></div><span class="pprice" data-i18n="pr22">400 000 – 800 000 сум</span></li></ul></div><div class="panel" role="tabpanel" data-p="4"><h3 class="ph" data-i18n="sec4">Эндодонтия</h3><ul class="plist"><li class="prow" data-s="подкоронка эндо + charisma "><div class="pname"><span class="iname">Подкоронка эндо + CHARISMA</span></div><span class="pprice" data-i18n="pr23">300 000 – 400 000 сум</span></li><li class="prow" data-s="эндолечение однокорневые зубы "><div class="pname"><span class="iname">Эндолечение однокорневые зубы</span></div><span class="pprice" data-i18n="pr24">150 000 сум</span></li><li class="prow" data-s="эндолечение двухкоренные зубы "><div class="pname"><span class="iname">Эндолечение двухкоренные зубы</span></div><span class="pprice" data-i18n="pr25">200 000 сум</span></li><li class="prow" data-s="эндолечение трехкоренные зубы "><div class="pname"><span class="iname">Эндолечение трехкоренные зубы</span></div><span class="pprice" data-i18n="pr26">300 000 сум</span></li></ul></div><div class="panel" role="tabpanel" data-p="5"><h3 class="ph" data-i18n="sec5">Терапевтическая Стоматология</h3><ul class="plist"><li class="prow" data-s="световая пломба charisma"><div class="pname"><span class="iname">Световая пломба</span><span class="idesc">CHARISMA</span></div><span class="pprice" data-i18n="pr27">250 000 сум</span></li><li class="prow" data-s="световая пломба spectrum"><div class="pname"><span class="iname">Световая пломба</span><span class="idesc">SPECTRUM</span></div><span class="pprice" data-i18n="pr28">350 000 сум</span></li><li class="prow" data-s="световая пломба estelite"><div class="pname"><span class="iname">Световая пломба</span><span class="idesc">ESTELITE</span></div><span class="pprice" data-i18n="pr29">400 000 сум</span></li></ul></div><div class="panel" role="tabpanel" data-p="6"><h3 class="ph" data-i18n="sec6">Косметическая стоматология</h3><ul class="plist"><li class="prow" data-s="профессиональная чистка зубов "><div class="pname"><span class="iname">Профессиональная чистка зубов</span></div><span class="pprice" data-i18n="pr30">400 000 сум</span></li><li class="prow" data-s="профессиональное отбеливание с аппаратом zoom"><div class="pname"><span class="iname">Профессиональное отбеливание</span><span class="idesc">С аппаратом ZOOM</span></div><span class="pprice" data-i18n="pr31">1 500 000 сум</span></li><li class="prow" data-s="восстановление фронтального зуба charisma"><div class="pname"><span class="iname">Восстановление фронтального зуба</span><span class="idesc">CHARISMA</span></div><span class="pprice" data-i18n="pr32">400 000 сум</span></li><li class="prow" data-s="восстановление фронтального зуба spectrum"><div class="pname"><span class="iname">Восстановление фронтального зуба</span><span class="idesc">SPECTRUM</span></div><span class="pprice" data-i18n="pr33">500 000 сум</span></li><li class="prow" data-s="восстановление фронтального зуба estelite asteria"><div class="pname"><span class="iname">Восстановление фронтального зуба</span><span class="idesc">ESTELITE ASTERIA</span></div><span class="pprice" data-i18n="pr34">600 000 сум</span></li></ul></div><div class="panel" role="tabpanel" data-p="7"><h3 class="ph" data-i18n="sec7">Детское Лечение</h3><ul class="plist"><li class="prow" data-s="девид с "><div class="pname"><span class="iname">Девид С</span></div><span class="pprice" data-i18n="pr35">100 000 сум</span></li><li class="prow" data-s="отток каналов "><div class="pname"><span class="iname">Отток каналов</span></div><span class="pprice" data-i18n="pr36">100 000 сум</span></li><li class="prow" data-s="световая пломба с канал пломбой "><div class="pname"><span class="iname">Световая пломба с канал пломбой</span></div><span class="pprice" data-i18n="pr37">250 000 сум</span></li><li class="prow" data-s="удаление молочных зубов "><div class="pname"><span class="iname">Удаление молочных зубов</span></div><span class="pprice" data-i18n="pr38">150 000 сум</span></li></ul></div>
+<p class="none" id="none" data-i18n="srch_none">Ничего не найдено</p>
+</div>
+<div class="pnote"><p data-i18n="price_upd">Обновлено 4 июня 2026</p><p data-i18n="price_disc">Цены предоставлены владельцем фирмы и не являются публичной офертой</p></div>
+</div></section>
+
+<section id="klinika" class="alt"><div class="wrap">
+<h2 data-i18n="h_clinic">Клиника</h2><p class="sub" data-i18n="clinic_sub">Фотографии клиники из 2ГИС.</p>
+<div class="gal cgal"><button class="gi cl" type="button" data-g="c"><img src="img/07.jpg" loading="lazy" alt="Кабинет с мраморными панелями" data-alt-i18n="c0" width="900" height="1200"></button><button class="gi cl" type="button" data-g="c"><img src="img/08.jpg" loading="lazy" alt="Кабинет с мраморными панелями, другой ракурс" data-alt-i18n="c1" width="900" height="1200"></button><button class="gi cl" type="button" data-g="c"><img src="img/05.jpg" loading="lazy" alt="Стоматологический кабинет" data-alt-i18n="c2" width="900" height="1200"></button><button class="gi cl" type="button" data-g="c"><img src="img/06.jpg" loading="lazy" alt="Стоматологический кабинет" data-alt-i18n="c3" width="900" height="1200"></button><button class="gi cl" type="button" data-g="c"><img src="img/10.jpg" loading="lazy" alt="Кабинет, стеклянная дверь с логотипом DENT LUX" data-alt-i18n="c4" width="900" height="1200"></button><button class="gi cl" type="button" data-g="c"><img src="img/11.jpg" loading="lazy" alt="Фасад: вывеска STOMATOLOGIYA и вывеска DENT LUX" data-alt-i18n="c5" width="900" height="1200"></button></div>
+</div></section>
+
+<section id="raboty"><div class="wrap">
+<h2 data-i18n="h_work">Работы до и после</h2><p class="sub" data-i18n="work_sub">Фотографии загружены владельцем в 2ГИС.</p>
+<div class="gal"><button class="gi" type="button" data-g="w"><img src="img/01.jpg" loading="lazy" alt="Работа 1: до и после" data-alt-i18n="w0" width="881" height="1182"></button><button class="gi" type="button" data-g="w"><img src="img/02.jpg" loading="lazy" alt="Работа 2: до и после" data-alt-i18n="w1" width="886" height="1185"></button><button class="gi" type="button" data-g="w"><img src="img/03.jpg" loading="lazy" alt="Работа 3: до и после" data-alt-i18n="w2" width="884" height="1179"></button><button class="gi" type="button" data-g="w"><img src="img/04.jpg" loading="lazy" alt="Работа 4: до и после" data-alt-i18n="w3" width="890" height="1185"></button></div>
+</div></section>
+
+<section id="otzyv" class="alt"><div class="wrap">
+<h2 data-i18n="h_rev">Отзыв</h2><p class="sub" data-i18n="rev_note">Отзыв из 2ГИС, на языке оригинала.</p>
+<div class="rgrid">
+<div>
+<figure class="rev"><div class="stars" role="img" aria-label="5/5"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg></div>
+<blockquote>Отличная клиника!</blockquote>
+<figcaption><b>Городской житель</b><span data-i18n="rev_date">19 ноября 2026</span></figcaption></figure>
+<p style="margin-top:16px"><a class="btn btn-line" href="https://2gis.uz/bukhara/firm/70000001083382159/tab/reviews" target="_blank" rel="noopener" data-i18n="rev_all">Все отзывы в 2ГИС</a></p>
+</div>
+<div class="igc"><h3 data-i18n="ig_t">Клиника в Instagram</h3><p class="nick">@dent_lux_uz</p><p data-i18n="ig_s">Страница клиники в Instagram.</p>
+<a class="btn" href="https://instagram.com/dent_lux_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg><span data-i18n="ig_open">Открыть Instagram</span></a></div>
+</div>
+</div></section>
+
+<section id="kontakty"><div class="wrap">
+<h2 style="margin-bottom:28px" data-i18n="h_cont">Контакты</h2>
+<div class="cgrid">
+<div class="card">
+<button class="gi fac" type="button" data-g="f"><img src="img/11.jpg" loading="lazy" alt="Фасад: вывеска STOMATOLOGIYA и вывеска DENT LUX" data-alt-i18n="c5" width="900" height="1200"></button><span class="fcap" data-i18n="fac_cap">Фасад клиники</span>
+<h3 data-i18n="addr_l">Адрес</h3><p data-i18n="addr">улица Академика Ибрагима Муминова, 39, 1 этаж, Бухара</p>
+<h3 data-i18n="land_l">Ориентиры</h3><ul class="land"><li>Buxoro, торгово-развлекательный центр, 900 м</li><li>Баскетбольная площадка, 350 м</li></ul>
+<h3 data-i18n="tel_l">Телефоны</h3><div class="tels"><a class="tel" href="tel:+998948879005">+998 94‒887‒90‒05</a><a class="tel" href="tel:+998907109005">+998 90‒710‒90‒05</a></div>
+<h3 data-i18n="soc_l">Соцсети</h3>
+<div class="soc"><a class="btn btn-dark btn-sm" href="https://instagram.com/dent_lux_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>Instagram @dent_lux_uz</a></div>
+<h3 style="margin-top:22px" data-i18n="h_hours">Часы работы</h3>
+<ul class="hours"><li data-d="1"><b data-i18n="day_mon">Пн</b><span>09:00–22:00</span></li><li data-d="2"><b data-i18n="day_tue">Вт</b><span>09:00–22:00</span></li><li data-d="3"><b data-i18n="day_wed">Ср</b><span>09:00–22:00</span></li><li data-d="4"><b data-i18n="day_thu">Чт</b><span>09:00–22:00</span></li><li data-d="5"><b data-i18n="day_fri">Пт</b><span>09:00–22:00</span></li><li data-d="6"><b data-i18n="day_sat">Сб</b><span>09:00–22:00</span></li><li data-d="0"><b data-i18n="day_sun">Вс</b><span>10:00–19:00</span></li></ul>
+</div>
+<div><div id="map"></div>
+<div class="mbtns"><a class="btn btn-blue" href="https://2gis.uz/bukhara/firm/70000001083382159" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="open2gis">Открыть в 2ГИС</span></a><a class="btn btn-line" href="https://2gis.uz/bukhara/directions/points/%7C64.438463%2C39.766599" target="_blank" rel="noopener"><span data-i18n="route">Маршрут</span></a></div></div>
+</div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><img class="flogo" src="img/logo.png" alt="" width="56" height="56"><b>Dent lux</b><span data-i18n="addr">улица Академика Ибрагима Муминова, 39, 1 этаж, Бухара</span><a class="fig" href="https://instagram.com/dent_lux_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg><span>Instagram @dent_lux_uz</span></a><span data-i18n="foot">Данные: 2ГИС</span></div></footer>
+
+<div class="sticky"><a class="btn btn-blue" href="tel:+998948879005"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span data-i18n="call_s">Позвонить</span></a><a class="btn btn-dark" href="https://instagram.com/dent_lux_uz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg><span data-i18n="ig_short">Instagram</span></a></div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true"><button class="x" type="button" aria-label="Закрыть" data-aria-i18n="x_l">×</button><button class="pv" type="button" aria-label="Назад" data-aria-i18n="pv_l">‹</button><img alt=""><button class="nx" type="button" aria-label="Вперёд" data-aria-i18n="nx_l">›</button><div class="cap"></div></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var I18N={"ru": {"cat0": "Частные стоматологии", "cat1": "Частные детские стоматологии", "cat2": "Проведение хирургических операций", "cat3": "Хирург", "s0": "Взрослый стоматолог-хирург", "s1": "Взрослый ортодонт", "s2": "Взрослый стоматолог-ортопед", "s3": "Имплантация", "s4": "Взрослый гнатолог", "s5": "Детский стоматолог-терапевт", "s6": "Детский ортодонт", "s7": "Детский стоматолог-хирург", "s8": "КТ зубов", "s9": "Прицельный снимок зуба", "s10": "Бесплатная консультация", "pay0": "Оплата картой", "pay1": "Наличный расчёт", "pay2": "Перевод с карты", "acc0": "Пандус", "sec0": "Пародонтология", "pr1": "300 000 сум", "sec1": "Ортопедия", "pr2": "2 000 000 сум", "pr3": "2 500 000 сум", "pr4": "3 000 000 сум", "pr5": "600 000 сум", "pr6": "300 000 сум", "pr7": "250 000 сум", "pr8": "1 200 000 сум", "pr9": "1 500 000 сум", "pr10": "800 000 сум", "pr11": "1 600 000 сум", "pr12": "1 300 000 сум", "sec2": "Ортодонтия", "pr13": "6 000 000 сум", "pr14": "8 000 000 сум", "pr15": "800 000 сум", "sec3": "Хирургия", "pr16": "2 500 000 сум", "pr17": "3 000 000 сум", "pr18": "600 000 сум", "pr19": "300 000 сум", "pr20": "1 200 000 сум", "pr21": "200 000 – 300 000 сум", "pr22": "400 000 – 800 000 сум", "sec4": "Эндодонтия", "pr23": "300 000 – 400 000 сум", "pr24": "150 000 сум", "pr25": "200 000 сум", "pr26": "300 000 сум", "sec5": "Терапевтическая Стоматология", "pr27": "250 000 сум", "pr28": "350 000 сум", "pr29": "400 000 сум", "sec6": "Косметическая стоматология", "pr30": "400 000 сум", "pr31": "1 500 000 сум", "pr32": "400 000 сум", "pr33": "500 000 сум", "pr34": "600 000 сум", "sec7": "Детское Лечение", "pr35": "100 000 сум", "pr36": "100 000 сум", "pr37": "250 000 сум", "pr38": "150 000 сум", "c0": "Кабинет с мраморными панелями", "c1": "Кабинет с мраморными панелями, другой ракурс", "c2": "Стоматологический кабинет", "c3": "Стоматологический кабинет", "c4": "Кабинет, стеклянная дверь с логотипом DENT LUX", "c5": "Фасад: вывеска STOMATOLOGIYA и вывеска DENT LUX", "w0": "Работа 1: до и после", "w1": "Работа 2: до и после", "w2": "Работа 3: до и после", "w3": "Работа 4: до и после", "day_mon": "Пн", "day_tue": "Вт", "day_wed": "Ср", "day_thu": "Чт", "day_fri": "Пт", "day_sat": "Сб", "day_sun": "Вс", "nav_svc": "Услуги", "nav_price": "Цены", "nav_work": "Работы", "nav_rev": "Отзыв", "nav_cont": "Контакты", "call": "Позвонить", "ig_btn": "Написать в Instagram", "call_s": "Позвонить", "ig_short": "Instagram", "lead": "9+ лет заботы о здоровых улыбках", "in_city": "Бухара", "h_svc": "Услуги", "svc_sub": "Направления и услуги, которые клиника указала в карточке 2ГИС.", "h_pay": "Способы оплаты", "h_acc": "Доступная среда", "h_price": "Цены", "price_sub": "Все разделы прайса клиники из 2ГИС.", "srch_ph": "Поиск по услугам", "srch_l": "Поиск по услугам", "srch_none": "Ничего не найдено", "price_upd": "Обновлено 4 июня 2026", "price_disc": "Цены предоставлены владельцем фирмы и не являются публичной офертой", "nav_clinic": "Клиника", "h_clinic": "Клиника", "clinic_sub": "Фотографии клиники из 2ГИС.", "h_work": "Работы до и после", "work_sub": "Фотографии загружены владельцем в 2ГИС.", "h_rev": "Отзыв", "rev_note": "Отзыв из 2ГИС, на языке оригинала.", "rev_all": "Все отзывы в 2ГИС", "ig_t": "Клиника в Instagram", "ig_s": "Страница клиники в Instagram.", "ig_open": "Открыть Instagram", "h_cont": "Контакты", "addr_l": "Адрес", "tel_l": "Телефоны", "soc_l": "Соцсети", "land_l": "Ориентиры", "addr": "улица Академика Ибрагима Муминова, 39, 1 этаж, Бухара", "h_hours": "Часы работы", "open2gis": "Открыть в 2ГИС", "route": "Маршрут", "foot": "Данные: 2ГИС", "rev_date": "19 ноября 2026", "fac_cap": "Фасад клиники", "title": "Dent lux — стоматология, Бухара", "meta": "Dent lux: частная и детская стоматология, хирургия. Бухара, улица Академика Ибрагима Муминова, 39. Цены, фото работ, контакты.", "x_l": "Закрыть", "pv_l": "Назад", "nx_l": "Вперёд"}, "uz": {"cat0": "Xususiy stomatologiyalar", "cat1": "Xususiy bolalar stomatologiyalari", "cat2": "Jarrohlik operatsiyalarini o‘tkazish", "cat3": "Jarroh", "s0": "Katta yoshdagilar uchun stomatolog-jarroh", "s1": "Katta yoshdagilar uchun ortodont", "s2": "Katta yoshdagilar uchun stomatolog-ortoped", "s3": "Implantatsiya", "s4": "Katta yoshdagilar uchun gnatolog", "s5": "Bolalar stomatologi-terapevt", "s6": "Bolalar ortodonti", "s7": "Bolalar stomatologi-jarroh", "s8": "Tishlarning kompyuter tomografiyasi (KT)", "s9": "Tishning maqsadli (prisel) rentgen surati", "s10": "Bepul maslahat", "pay0": "Karta orqali to‘lov", "pay1": "Naqd pul bilan to‘lov", "pay2": "Kartadan o‘tkazma", "acc0": "Pandus", "sec0": "Parodontologiya", "pr1": "300 000 so‘m", "sec1": "Ortopediya", "pr2": "2 000 000 so‘m", "pr3": "2 500 000 so‘m", "pr4": "3 000 000 so‘m", "pr5": "600 000 so‘m", "pr6": "300 000 so‘m", "pr7": "250 000 so‘m", "pr8": "1 200 000 so‘m", "pr9": "1 500 000 so‘m", "pr10": "800 000 so‘m", "pr11": "1 600 000 so‘m", "pr12": "1 300 000 so‘m", "sec2": "Ortodontiya", "pr13": "6 000 000 so‘m", "pr14": "8 000 000 so‘m", "pr15": "800 000 so‘m", "sec3": "Jarrohlik", "pr16": "2 500 000 so‘m", "pr17": "3 000 000 so‘m", "pr18": "600 000 so‘m", "pr19": "300 000 so‘m", "pr20": "1 200 000 so‘m", "pr21": "200 000 – 300 000 so‘m", "pr22": "400 000 – 800 000 so‘m", "sec4": "Endodontiya", "pr23": "300 000 – 400 000 so‘m", "pr24": "150 000 so‘m", "pr25": "200 000 so‘m", "pr26": "300 000 so‘m", "sec5": "Terapevtik stomatologiya", "pr27": "250 000 so‘m", "pr28": "350 000 so‘m", "pr29": "400 000 so‘m", "sec6": "Kosmetik stomatologiya", "pr30": "400 000 so‘m", "pr31": "1 500 000 so‘m", "pr32": "400 000 so‘m", "pr33": "500 000 so‘m", "pr34": "600 000 so‘m", "sec7": "Bolalarni davolash", "pr35": "100 000 so‘m", "pr36": "100 000 so‘m", "pr37": "250 000 so‘m", "pr38": "150 000 so‘m", "c0": "Marmar panelli kabinet", "c1": "Marmar panelli kabinet, boshqa rakurs", "c2": "Stomatologiya kabineti", "c3": "Stomatologiya kabineti", "c4": "Kabinet, DENT LUX logotipli shisha eshik", "c5": "Fasad: STOMATOLOGIYA va DENT LUX lavhalari", "w0": "Ish 1: oldin va keyin", "w1": "Ish 2: oldin va keyin", "w2": "Ish 3: oldin va keyin", "w3": "Ish 4: oldin va keyin", "day_mon": "Du", "day_tue": "Se", "day_wed": "Ch", "day_thu": "Pa", "day_fri": "Ju", "day_sat": "Sh", "day_sun": "Ya", "nav_svc": "Xizmatlar", "nav_price": "Narxlar", "nav_work": "Ishlar", "nav_rev": "Sharh", "nav_cont": "Kontaktlar", "call": "Qo‘ng‘iroq qilish", "ig_btn": "Instagram’da yozish", "call_s": "Qo‘ng‘iroq", "ig_short": "Instagram", "lead": "Sog‘lom tabassumlar uchun 9+ yillik g‘amxo‘rlik", "in_city": "Buxoro", "h_svc": "Xizmatlar", "svc_sub": "Klinika 2GIS kartochkasida ko‘rsatgan yo‘nalishlar va xizmatlar.", "h_pay": "To‘lov usullari", "h_acc": "To‘siqsiz muhit", "h_price": "Narxlar", "price_sub": "2GIS’dagi klinika narxnomasining barcha bo‘limlari.", "srch_ph": "Xizmatlar bo‘yicha qidirish", "srch_l": "Xizmatlar bo‘yicha qidirish", "srch_none": "Hech narsa topilmadi", "price_upd": "2026-yil 4-iyunda yangilangan", "price_disc": "Narxlar firma egasi tomonidan taqdim etilgan va ommaviy oferta hisoblanmaydi", "nav_clinic": "Klinika", "h_clinic": "Klinika", "clinic_sub": "Klinikaning 2GIS’dagi suratlari.", "h_work": "Ishlar: oldin va keyin", "work_sub": "Suratlarni egasi 2GIS’ga yuklagan.", "h_rev": "Sharh", "rev_note": "2GIS’dagi sharh, asl tilida.", "rev_all": "2GIS’dagi barcha sharhlar", "ig_t": "Klinika Instagram’da", "ig_s": "Klinikaning Instagram sahifasi.", "ig_open": "Instagram’ni ochish", "h_cont": "Kontaktlar", "addr_l": "Manzil", "tel_l": "Telefonlar", "soc_l": "Ijtimoiy tarmoqlar", "land_l": "Mo‘ljallar", "addr": "улица Академика Ибрагима Муминова, 39, 1-qavat, Бухара", "h_hours": "Ish vaqti", "open2gis": "2GIS’da ochish", "route": "Yo‘nalish", "foot": "Ma’lumotlar: 2GIS", "rev_date": "19 noyabr 2026", "fac_cap": "Klinika fasadi", "title": "Dent lux — stomatologiya, Buxoro", "meta": "Dent lux: xususiy va bolalar stomatologiyasi, jarrohlik. Buxoro, улица Академика Ибрагима Муминова, 39. Narxlar, ish suratlari, kontaktlar.", "x_l": "Yopish", "pv_l": "Oldingi", "nx_l": "Keyingi"}};
+var cur='ru';
+var gis=[].slice.call(document.querySelectorAll('.gi')),list=gis,lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbc=lb.querySelector('.cap'),idx=0;
+function show(n){idx=(n+list.length)%list.length;var im=list[idx].querySelector('img');lbi.src=im.src;lbi.alt=im.alt;var one=list.length<2;lb.querySelector('.pv').style.display=one?'none':'';lb.querySelector('.nx').style.display=one?'none':'';lbc.textContent=one?im.alt:im.alt+' · '+(idx+1)+'/'+list.length;lb.classList.add('on')}
+function hide(){lb.classList.remove('on')}
+function setLang(l){
+  cur=l;document.documentElement.lang=l;
+  var d=I18N[l];
+  document.querySelectorAll('[data-i18n]').forEach(function(n){var k=n.getAttribute('data-i18n');if(d[k]!=null)n.textContent=d[k]});
+  document.querySelectorAll('[data-alt-i18n]').forEach(function(n){var k=n.getAttribute('data-alt-i18n');if(d[k]!=null)n.alt=d[k]});
+  document.querySelectorAll('[data-ph-i18n]').forEach(function(n){var k=n.getAttribute('data-ph-i18n');if(d[k]!=null)n.placeholder=d[k]});
+  document.querySelectorAll('[data-aria-i18n]').forEach(function(n){var k=n.getAttribute('data-aria-i18n');if(d[k]!=null)n.setAttribute('aria-label',d[k])});
+  document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l)});
+  document.title=d.title;document.getElementById('md').setAttribute('content',d.meta);
+  try{localStorage.setItem('lang',l)}catch(e){}
+  if(lb.classList.contains('on'))show(idx);
+}
+// сегодня
+var td=new Date().getDay();
+document.querySelectorAll('.hours li').forEach(function(li){if(+li.dataset.d===td)li.classList.add('today')});
+// вкладки прайса и поиск
+var tabs=[].slice.call(document.querySelectorAll('.tab')),panels=[].slice.call(document.querySelectorAll('.panel')),box=document.getElementById('pbox'),q=document.getElementById('q'),none=document.getElementById('none');
+tabs.forEach(function(b){b.addEventListener('click',function(){
+  if(b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});tabs.forEach(function(x){x.classList.toggle('on',x===b);x.setAttribute('aria-selected',x===b)});
+  panels.forEach(function(p){p.classList.toggle('on',p.dataset.p===b.dataset.t)});
+})});
+q.addEventListener('input',function(){
+  var v=q.value.trim().toLowerCase(),any=false;
+  box.classList.toggle('searching',!!v);
+  panels.forEach(function(p){var m=0;p.querySelectorAll('.prow').forEach(function(r){var ok=!v||r.dataset.s.indexOf(v)>-1;r.style.display=ok?'':'none';if(ok)m++});p.classList.toggle('nomatch',!!v&&!m);if(m)any=true});
+  none.style.display=(v&&!any)?'block':'none';
+});
+// лайтбокс
+gis.forEach(function(g){g.addEventListener('click',function(){list=gis.filter(function(x){return x.dataset.g===g.dataset.g});show(list.indexOf(g))})});
+lb.querySelector('.x').onclick=hide;lb.querySelector('.pv').onclick=function(){show(idx-1)};lb.querySelector('.nx').onclick=function(){show(idx+1)};
+lb.addEventListener('click',function(e){if(e.target===lb)hide()});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;if(e.key==='Escape')hide();if(list.length<2)return;if(e.key==='ArrowLeft')show(idx-1);if(e.key==='ArrowRight')show(idx+1)});
+var sx=0;lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+lb.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(list.length>1&&Math.abs(dx)>50)show(idx+(dx<0?1:-1))});
+// язык
+document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.l)})});
+(function(){var l='ru';try{l=localStorage.getItem('lang')||'ru'}catch(e){}if(l!=='ru'&&I18N[l])setLang(l)})();
+// карта
+if(window.L){var m=L.map('map',{scrollWheelZoom:false,dragging:!L.Browser.mobile,tap:false}).setView([39.766599,64.438463],17);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(m);
+L.marker([39.766599,64.438463]).addTo(m)}
+</script>
+</body></html>
